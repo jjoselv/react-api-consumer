@@ -1,12 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import withReduxFeatures from './withReduxFeatures';
 import './index.css';
-import App from './components/App/App';
+import App from './components/App';
 import reportWebVitals from './reportWebVitals';
+
+/** Wrap App component with store providers */
+const WrappedApp = withReduxFeatures(App);
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <WrappedApp />
   </React.StrictMode>,
   document.getElementById('root')
 );

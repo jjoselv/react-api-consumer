@@ -1,0 +1,49 @@
+.close-modal-button {
+  cursor: pointer;
+  border: none;
+  position: absolute;
+  padding: 16px;
+  background-color: transparent;
+  right: 0;
+  top: 0;
+  &:hover,
+  &:focus {
+    color: #0053ba;
+  }
+  &:focus {
+    outline: 1px solid #fff;
+    outline-offset: -4px;
+  }
+  &:active {
+    transform: scale(0.99);
+  }
+}
+
+.modal {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  right: 20px;
+  bottom: 20px;
+  background-color: white;
+  outline: none;
+  padding: 10px;
+  border-radius: 6px;
+
+  @media screen and (min-width: 850px) {
+    top: 100px;
+    left: 200px;
+    right: 200px;
+    bottom: 100px;
+  }
+}
+
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.2);
+}
