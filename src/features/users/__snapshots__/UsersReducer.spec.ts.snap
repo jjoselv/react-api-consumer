@@ -1,0 +1,80 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`features > users > UsersReducer updates state according to dispatched action GET_NEXT_BATCH_FULFILLED 1`] = `
+Object {
+  "hasError": false,
+  "isFulfilled": true,
+  "isLoading": false,
+  "page": 42,
+  "users": Array [
+    Object {
+      "email": "fdsa@ffff.com",
+    },
+    Object {
+      "email": "asdf@asdf.com",
+    },
+  ],
+}
+`;
+
+exports[`features > users > UsersReducer updates state according to dispatched action GET_NEXT_BATCH_PENDING 1`] = `
+Object {
+  "hasError": false,
+  "isFulfilled": false,
+  "isLoading": true,
+  "page": 1,
+  "users": Array [
+    Object {
+      "email": "fdsa@ffff.com",
+    },
+  ],
+}
+`;
+
+exports[`features > users > UsersReducer updates state according to dispatched action GET_NEXT_BATCH_REJECTED 1`] = `
+Object {
+  "hasError": true,
+  "isFulfilled": false,
+  "isLoading": false,
+  "page": 1,
+  "users": Array [
+    Object {
+      "email": "fdsa@ffff.com",
+    },
+  ],
+}
+`;
+
+exports[`features > users > UsersReducer updates state according to dispatched action GET_USERS_FULFILLED 1`] = `
+Object {
+  "hasError": false,
+  "isFulfilled": true,
+  "isLoading": false,
+  "page": 2,
+  "users": Array [
+    Object {
+      "email": "asdf@asdf.com",
+    },
+  ],
+}
+`;
+
+exports[`features > users > UsersReducer updates state according to dispatched action GET_USERS_PENDING 1`] = `
+Object {
+  "hasError": false,
+  "isFulfilled": false,
+  "isLoading": true,
+  "page": 1,
+  "users": undefined,
+}
+`;
+
+exports[`features > users > UsersReducer updates state according to dispatched action GET_USERS_REJECTED 1`] = `
+Object {
+  "hasError": true,
+  "isFulfilled": false,
+  "isLoading": false,
+  "page": 1,
+  "users": undefined,
+}
+`;

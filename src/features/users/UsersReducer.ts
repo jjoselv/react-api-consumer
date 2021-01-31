@@ -1,6 +1,15 @@
-import {GET_NEXT_BATCH, GET_USERS} from './actionTypes';
+import {User} from '../../components/Users/Users';
+import {GET_NEXT_BATCH, GET_USERS, USERS_ACTION_TYPE} from './actionTypes';
 
-const initialState = {
+export interface UsersState {
+  users: undefined | User[],
+  isLoading: boolean,
+  hasError: boolean,
+  isFulfilled: boolean,
+  page: number,
+}
+
+const initialState: UsersState = {
   users: undefined,
   isLoading: false,
   hasError: false,
@@ -8,7 +17,7 @@ const initialState = {
   page: 1,
 };
 
-function reducer(state = initialState, action) {
+function reducer(state = initialState, action: USERS_ACTION_TYPE): UsersState {
   switch (action.type) {
     case `${GET_USERS}_PENDING`:
       return {
@@ -18,7 +27,6 @@ function reducer(state = initialState, action) {
         hasError: false,
         users: undefined,
       };
-
     case `${GET_USERS}_FULFILLED`:
       return {
         ...state,
@@ -28,7 +36,6 @@ function reducer(state = initialState, action) {
         users: action.payload.data?.results,
         page: action.payload.data?.info?.page,
       };
-
     case `${GET_USERS}_REJECTED`:
       return {
         ...state,
@@ -37,7 +44,6 @@ function reducer(state = initialState, action) {
         hasError: true,
         users: undefined,
       };
-
     case `${GET_NEXT_BATCH}_PENDING`:
       return {
         ...state,
@@ -51,10 +57,9 @@ function reducer(state = initialState, action) {
         isFulfilled: true,
         isLoading: false,
         hasError: false,
-        users: [...state.users, ...action.payload.data.results],
+        users: [...(state.users ?? []), ...action.payload.data.results],
         page: action.payload.data?.info?.page,
       };
-
     case `${GET_NEXT_BATCH}_REJECTED`:
       return {
         ...state,
@@ -62,7 +67,6 @@ function reducer(state = initialState, action) {
         isLoading: false,
         hasError: true,
       };
-
     default:
       return state;
   }

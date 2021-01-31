@@ -1,17 +1,20 @@
 import config from '../../config';
-import {SET_NATIONALITY} from './actionTypes';
+import {SETTINGS_ACTION_TYPE, SET_NATIONALITY} from './actionTypes';
 
-const initialState = {
+export interface SettingsState {
+  nationality: string
+}
+
+const initialState: SettingsState = {
   nationality: config.defaultNationality,
 };
 
-function reducer(state = initialState, action) {
+function reducer(state = initialState, action: SETTINGS_ACTION_TYPE): SettingsState {
   switch (action.type) {
     case SET_NATIONALITY:
       return {
         nationality: action.payload,
       };
-
     default:
       return state;
   }

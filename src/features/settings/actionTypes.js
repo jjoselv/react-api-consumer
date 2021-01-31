@@ -1,1 +1,0 @@
-export const SET_NATIONALITY = 'SET_NATIONALITY';

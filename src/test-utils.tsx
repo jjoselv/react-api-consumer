@@ -1,11 +1,11 @@
 // test-utils.js
-import React from 'react';
+import * as React from 'react';
 import {render} from '@testing-library/react';
 import {Provider} from 'react-redux';
 import configureStore from 'redux-mock-store';
 
 // eslint-disable-next-line react/prop-types
-const AllTheProviders = ({children}) => {
+const AllTheProviders = (props: any) => {
   /** Create mock store with the count value */
   const mockStore = configureStore([]);
   const settingsState = {
@@ -139,10 +139,10 @@ const AllTheProviders = ({children}) => {
     users: usersState,
   });
 
-  return <Provider store={store}>{children}</Provider>;
+  return <Provider store={store} {...props}/>
 };
 
-const customRender = (ui, options) =>
+const customRender = (ui: any, options?: any) =>
   render(ui, {wrapper: AllTheProviders, ...options});
 
 // re-export everything

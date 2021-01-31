@@ -1,4 +1,6 @@
 import {SET_NATIONALITY} from './actionTypes';
+import type {SetNationalityAction, SETTINGS_ACTION_TYPE} from './actionTypes';
+
 import SettingsReducer from './SettingsReducer';
 
 describe('features > settings > SettingsReducer', () => {
@@ -11,7 +13,7 @@ describe('features > settings > SettingsReducer', () => {
       type: 'FOO',
     };
 
-    expect(SettingsReducer(initialState, action)).toBe(initialState);
+    expect(SettingsReducer(initialState, action as SETTINGS_ACTION_TYPE)).toBe(initialState);
   });
 
   it(`updates state according to dispatched action`, () => {
@@ -21,7 +23,7 @@ describe('features > settings > SettingsReducer', () => {
 
     const payload = 'es';
 
-    const action = {
+    const action: SetNationalityAction = {
       type: SET_NATIONALITY,
       payload,
     };

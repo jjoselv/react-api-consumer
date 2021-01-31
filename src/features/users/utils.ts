@@ -1,13 +1,14 @@
 import config from '../../config';
+import { AxiosParams } from '../../core/api/api';
 
-export const buildUsersParams = (baseUrl, options = {}) =>
+export const buildUsersParams = (baseUrl: string, options = {}) =>
   getParams(baseUrl, {
     ...options,
-    results: config.batchSize,
+    results: `${config.batchSize}`,
     seed: config.seed,
   });
 
-const getParams = (url, params = {}) => {
+const getParams = (url: string, params: AxiosParams = {}) => {
   const urlObject = new URL(url);
   const searchParams = new URLSearchParams(urlObject.search);
   Object.entries(params).forEach(paramPair =>

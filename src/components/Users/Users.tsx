@@ -1,11 +1,10 @@
 import * as React from 'react';
 import {useActions} from '../../features/users';
-import useUsersAPI from '../../features/users/selectors';
-import UserCard from '../UserCard/UserCard';
+import {useUsersAPI} from '../../features/users/selectors';
 import useInfiniteScroll from 'react-infinite-scroll-hook';
 import Modal from '../Modal';
 import config from '../../config';
-import UserCardBig from '../UserCard/UserCardBig';
+import {UserCard, UserCardBig} from '../UserCard';
 import debounce from '../../features/debounce';
 import Link from '../Link';
 import styles from './Users.module.scss';
@@ -89,7 +88,7 @@ const Users = () => {
     300
   );
 
-  const hasNextPage = users?.length < config.maxSize;
+  const hasNextPage = (users ?? []).length < config.maxSize;
 
   const infiniteRef = useInfiniteScroll({
     loading: isLoading,
@@ -118,7 +117,7 @@ const Users = () => {
   }, [searchingModeEnabled]);
 
   React.useEffect(() => {
-    if (searchTerm) {
+    if (searchTerm && users?.length) {
       setMatchesIndexesDebounced(generateMatchesIndexArray(users, searchTerm));
     } else {
       stopExecution();
@@ -177,7 +176,7 @@ const Users = () => {
             )
             .map((user: User) => (
               <UserCard
-                key={user?.login?.username}
+                key={user?.login?.username + user?.email}
                 user={user}
                 onClick={openModal(user)}
               />

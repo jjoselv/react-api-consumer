@@ -7,7 +7,7 @@ import App from '.';
 test('renders users list title', async () => {
   // Arrange
   const {container} = render(<App />);
-  ReactModal.setAppElement(container);
+  ReactModal.setAppElement(container as HTMLElement);
 
   // Act
   const title = await screen.findByText(/Users List/i);
@@ -19,14 +19,14 @@ test('renders users list title', async () => {
 test('setting page is rendered and can be accessible and can navigate back', async () => {
   // Arrange
   const {container} = render(<App />);
-  ReactModal.setAppElement(container);
+  ReactModal.setAppElement(container as HTMLElement);
 
   // Act
   const settingLink = await screen.findByLabelText(/go to settings/i);
   fireEvent.click(settingLink);
 
   // Assert
-  let settingsTitle = await screen.findByText(/Settings/i);
+  let settingsTitle: HTMLElement | null = await screen.findByText(/Settings/i);
   let mainTitle = screen.queryByText(/Users List/i);
   expect(settingsTitle).toBeInTheDocument();
   expect(mainTitle).not.toBeInTheDocument();
@@ -45,7 +45,7 @@ test('setting page is rendered and can be accessible and can navigate back', asy
 test('modal is opened when use card is clicked', async () => {
   // Arrange
   const {container} = render(<App />);
-  ReactModal.setAppElement(container);
+  ReactModal.setAppElement(container as HTMLElement);
 
   // Act
   const userCard = (await screen.findAllByTestId('user-card'))[0];
@@ -59,7 +59,7 @@ test('modal is opened when use card is clicked', async () => {
 test('modal is closed when close button is clicked', async () => {
   // Arrange
   const {container} = render(<App />);
-  ReactModal.setAppElement(container);
+  ReactModal.setAppElement(container as HTMLElement);
 
   // Act
   const userCard = (await screen.findAllByTestId('user-card'))[0];
@@ -75,22 +75,22 @@ test('modal is closed when close button is clicked', async () => {
 test('when search text is introduced list is empty', async () => {
   // Arrange
   const {container} = render(<App />);
-  ReactModal.setAppElement(container);
+  ReactModal.setAppElement(container as HTMLElement);
 
   // Act
   const searchInput = await screen.findByLabelText('search-input');
   fireEvent.change(searchInput, {target: {value: 'longstringthatdoesntmatch'}});
 
   // Assert
-  expect(searchInput.value).toBe('longstringthatdoesntmatch');
-  const gridNode = await screen.findByRole('grid');
-  waitFor(() => expect(gridNode).toBeEmptyDOMElement());
+  expect((searchInput as HTMLInputElement).value).toBe('longstringthatdoesntmatch');
+  const listNode = await screen.findByRole('list');
+  waitFor(() => expect(listNode).toBeEmptyDOMElement());
 });
 
 test('when search text is introduced banner is showing', async () => {
   // Arrange
   const {container} = render(<App />);
-  ReactModal.setAppElement(container);
+  ReactModal.setAppElement(container as HTMLElement);
 
   // Act
   const searchInput = await screen.findByLabelText('search-input');
