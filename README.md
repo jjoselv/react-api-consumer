@@ -7,7 +7,9 @@ which nationality you’re interested in.
 
 It will load the users in batches, displaying a loading indicator for the meantime.
 
-The configuration for the application can be edited at [config.ts](./src/config.ts)
+The configuration for the application can be edited at [config.ts](./src/config.ts).
+
+A live demo of the application can be seen [here](https://react-api-consumer.vercel.app/).
 
 ## Available Scripts
 
