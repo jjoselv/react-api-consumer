@@ -1,5 +1,9 @@
 {
   "compilerOptions": {
+    "incremental": true,
+    "sourceMap": true,
+    "importHelpers": false,
+    "declaration": false,
     "target": "es5",
     "lib": [
       "dom",
@@ -9,7 +13,8 @@
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
@@ -18,9 +23,15 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "allowSyntheticDefaultImports": true
   },
   "include": [
     "src"
+  ],
+  "exclude": [
+    "node_modules",
+    "build",
+    "scripts"
   ]
 }

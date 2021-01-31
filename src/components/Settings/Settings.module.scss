@@ -1,0 +1,33 @@
+.settings-page {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.settings-header {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  border-bottom: 1px solid gray;
+  flex: 1;
+}
+
+.select {
+  margin: 16px 0;
+}
+
+.settings-grid {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  grid-template-rows: 1fr;
+  gap: 0px 0px;
+  grid-template-areas: "labels fields";
+}
+
+.labels {
+  grid-area: labels;
+}
+
+.fields {
+  grid-area: fields;
+}

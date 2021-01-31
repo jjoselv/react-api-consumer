@@ -1,0 +1,70 @@
+.big-card-container {
+  margin: 10px;
+
+  border-radius: 6px;
+  transition-property: background-color;
+  transition-duration: 0.3s;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+
+  @media screen and (min-width: 1050px) {
+    flex-flow: row wrap;
+    align-items: initial;
+  }
+}
+
+.profile-picture-container {
+  padding: 16px;
+}
+
+.profile-picture {
+  width: 128px;
+  border-radius: 50%;
+}
+
+.data-container {
+  flex: 1;
+  display: flex;
+  flex-flow: column nowrap;
+  align-self: stretch;
+}
+
+fieldset {
+  border: none;
+}
+
+h3 {
+  margin-bottom: 10px;
+}
+
+.emoji-icon {
+  padding-right: 4px;
+  width: 20px;
+}
+
+.name {
+  margin: 0;
+  line-height: 1.45rem;
+  font-weight: bold;
+}
+.username {
+  margin: 0;
+  line-height: 1.45rem;
+  font-variant: small-caps;
+}
+.email {
+  margin: 0;
+  line-height: 1.45rem;
+  color: gray;
+}
+
+.location-text {
+  margin: 0;
+  line-height: 1.45rem;
+}
+
+.phones-text {
+  margin: 0;
+  line-height: 1.45rem;
+}

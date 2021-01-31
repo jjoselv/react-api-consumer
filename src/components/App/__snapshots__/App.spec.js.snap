@@ -53,10 +53,9 @@ exports[`components > App renders without crashing 1`] = `
           </div>
         </div>
       </div>
-      <div
-        aria-label="users grid"
-        class="users-grid"
-        role="grid"
+      <ul
+        aria-label="users list"
+        class="users-list"
       />
     </div>
   </div>

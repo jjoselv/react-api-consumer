@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import * as React from 'react';
 import {useActions} from '../../features/users';
 import useUsersAPI from '../../features/users/selectors';
 import UserCard from '../UserCard/UserCard';
@@ -7,13 +7,40 @@ import Modal from '../Modal';
 import config from '../../config';
 import UserCardBig from '../UserCard/UserCardBig';
 import debounce from '../../features/debounce';
-import {Link} from 'react-router-dom';
-import './Users.scss';
+import Link from '../Link';
+import styles from './Users.module.scss';
 import Banner from '../Banner';
 import Cog from '../Icons/Cog/Cog';
 
-const generateMatchesIndexArray = (users, searchTerm) =>
-  users.map(user => {
+export type User = {
+  name: {
+    first: string;
+    last: string;
+  };
+  login: {
+    username: string;
+  };
+  picture: {
+    thumbnail: string;
+    large: string;
+  };
+  email: string;
+  location: {
+    street: {
+      number: number | string;
+      name: string;
+    };
+    city: string;
+    state: string;
+    country: string;    
+    postcode: number;
+  };
+  phone: string;
+  cell: string;
+};
+
+const generateMatchesIndexArray = (users: User[], searchTerm: string) =>
+  users.map((user: User) => {
     const pattern = searchTerm.toLocaleLowerCase();
     const first = `${user?.name?.first ?? ''}`.toLocaleLowerCase();
     const last = `${user?.name?.last ?? ''}`.toLocaleLowerCase();
@@ -24,15 +51,15 @@ const generateMatchesIndexArray = (users, searchTerm) =>
 const Users = () => {
   const {users, isLoading, isFulfilled, hasError} = useUsersAPI();
   const {getUsers, getNextBatch} = useActions();
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedUser, setSelectedUser] = useState(undefined);
-  const [loadMoreRequested, setLoadMoreRequested] = useState(false);
-  const [searchInputIsFocused, setSearchInputIsFocused] = useState(false);
-  const [matchesIndexes, setMatchesIndexes] = useState([]);
+  const [searchTerm, setSearchTerm] = React.useState('');
+  const [selectedUser, setSelectedUser] = React.useState<User | undefined>(undefined);
+  const [loadMoreRequested, setLoadMoreRequested] = React.useState(false);
+  const [searchInputIsFocused, setSearchInputIsFocused] = React.useState(false);
+  const [matchesIndexes, setMatchesIndexes] = React.useState([]);
 
   const searchingModeEnabled = searchInputIsFocused || searchTerm;
 
-  useEffect(() => {
+  React.useEffect(() => {
     !isFulfilled && getUsers();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [getUsers]);
@@ -53,8 +80,8 @@ const Users = () => {
     setSearchInputIsFocused(false);
   }
 
-  function handleChangeSearchTerm(e) {
-    setSearchTerm(e.target.value);
+  function handleChangeSearchTerm(e: React.FormEvent<HTMLInputElement>) {
+    setSearchTerm((e.target as HTMLInputElement).value);
   }
 
   const [setMatchesIndexesDebounced, stopExecution] = debounce(
@@ -70,9 +97,9 @@ const Users = () => {
     onLoadMore: handleLoadMore,
   });
 
-  const [modalIsOpen, setIsOpen] = useState(false);
+  const [modalIsOpen, setIsOpen] = React.useState(false);
 
-  const openModal = user => () => {
+  const openModal = (user: User) => () => {
     setSelectedUser(user);
     setIsOpen(true);
   };
@@ -82,7 +109,7 @@ const Users = () => {
     setIsOpen(false);
   }
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (!searchingModeEnabled && loadMoreRequested) {
       getNextBatch();
       setLoadMoreRequested(false);
@@ -90,7 +117,7 @@ const Users = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchingModeEnabled]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (searchTerm) {
       setMatchesIndexesDebounced(generateMatchesIndexArray(users, searchTerm));
     } else {
@@ -104,15 +131,15 @@ const Users = () => {
     !hasNextPage && !isLoading && !hasError && isFulfilled;
 
   return (
-    <div ref={infiniteRef}>
-      <div className="users-grid-header">
-        <div className="title-zone">
+    <div ref={infiniteRef as React.RefObject<HTMLDivElement>}>
+      <div className={styles['users-grid-header']}>
+        <div className={styles['title-zone']}>
           <h2>Users List</h2>
         </div>
-        <div className="search-zone">
+        <div className={styles['search-zone']}>
           <input
             type="search"
-            className="search-input"
+            className={styles['search-input']}
             aria-label="search-input"
             value={searchTerm}
             onFocus={handleSeachInputFocus}
@@ -121,9 +148,9 @@ const Users = () => {
             placeholder={`"John Smith"`}
           />
         </div>
-        <div className="settings-zone">
-          <div className="link-container">
-            <Link to="/settings" className="link" aria-label="go to settings">
+        <div className={styles['settings-zone']}>
+          <div className={styles['link-container']}>
+            <Link to="/settings" aria-label="go to settings">
               <Cog/>
             </Link>
           </div>
@@ -142,20 +169,20 @@ const Users = () => {
       {hasError && (
         <Banner message="Something went wrong, please refresh the page..." />
       )}
-      <div className="users-grid" role="grid" aria-label="users grid">
+      <ul className={styles['users-list']} aria-label="users list">
         {users &&
           users
-            .filter((_, index) =>
+            .filter((_: any, index: number) =>
               matchesIndexes.length && searchTerm ? matchesIndexes[index] : true
             )
-            .map(user => (
+            .map((user: User) => (
               <UserCard
                 key={user?.login?.username}
                 user={user}
                 onClick={openModal(user)}
               />
             ))}
-      </div>
+      </ul>
       {isLoading && <Banner showLoading message="Loading..." />}
       {showEndOfCatalog && <Banner message="End of users catalog" />}
       <Modal

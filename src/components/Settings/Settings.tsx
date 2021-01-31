@@ -1,38 +1,39 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/accessible-emoji */
-import React from 'react';
+import * as React from 'react';
 import {useActions, useNationality} from '../../features/settings';
-import {Link} from 'react-router-dom';
-import './Settings.scss';
+import Link from '../Link';
 import ArrowLeft from '../Icons/ArrowLeft/ArrowLeft';
+import styles from './Settings.module.scss';
 
 export default function Settings() {
   const {setNationality} = useActions();
   const nationality = useNationality();
-  function handleNationalityChange(e) {
-    setNationality(e.target.value);
+  function handleNationalityChange(e: React.FormEvent<HTMLSelectElement>) {
+    setNationality((e.target as HTMLInputElement).value);
   }
   return (
-    <div className="settings-page">
-      <header className="settings-header">
-        <Link to="/" className="link" aria-label="go to home">
+    <div className={styles['settings-page']}>
+      <header className={styles['settings-header']}>
+        <Link to="/" aria-label="go to home">
           <ArrowLeft/>
         </Link>
         <h2>Settings</h2>
       </header>
-      <div className="settings-grid-container">
-        <div className="labels">
-          <label className="setting-labels" htmlFor="language-select">
+      <div className={styles['settings-grid']}>
+        <div className={styles.labels}>
+          <label className={styles['setting-labels']} htmlFor="language-select">
             <p>Nationality:</p>
           </label>
         </div>
-        <div className="fields">
+        <div className={styles.fields}>
           <select
             name="languages"
-            className="select"
+            className={styles.select}
             id="language-select"
             value={nationality}
-            onChange={handleNationalityChange}>
+            onChange={handleNationalityChange}
+          >
             <option value="ch">Swiss</option>
             <option value="es">Spanish</option>
             <option value="fr">French</option>
