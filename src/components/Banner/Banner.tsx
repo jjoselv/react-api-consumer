@@ -16,12 +16,13 @@ function Banner({
   return (
     <div
       className={`${styles.banner} ${warning && styles.warning}`}
+      data-testid='banner-test-id'
       {...(warning ? {role: 'alert'} : {})}
       {...rest}>
       {showLoading && (
-        <div className={styles['lds-ripple']}>
-          <div />
-          <div />
+        <div className={styles['lds-ripple']} data-testid='banner-spinner-test-id'>
+          <div className={styles['first-ring']}/>
+          <div className={styles['second-ring']}/>
         </div>
       )}
       <p className={styles['banner-text']}>{message}</p>

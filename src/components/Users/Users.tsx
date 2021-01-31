@@ -127,7 +127,7 @@ const Users = () => {
   }, [searchTerm]);
 
   const showEndOfCatalog =
-    !hasNextPage && !isLoading && !hasError && isFulfilled;
+    !hasNextPage && !isLoading && !hasError && isFulfilled && !searchingModeEnabled;
 
   return (
     <div ref={infiniteRef as React.RefObject<HTMLDivElement>}>

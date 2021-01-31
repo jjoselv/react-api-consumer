@@ -3,7 +3,11 @@
 This is a fictional address book app, where you can search for users addresses and
 personal information. The app displays a list of users for the end user to browse and
 get personal information for a selected user, where you can also select via a settings page
-which nationalities you’re interested in.
+which nationality you’re interested in.
+
+It will load the users in batches, displaying a loading indicator for the meantime.
+
+The configuration for the application can be edited at [config.ts](./src/config.ts)
 
 ## Available Scripts
 
